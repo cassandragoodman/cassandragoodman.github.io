@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cassandra Goodman — Independent Educational Consultant</title>
+<meta name="description" content="Personalized, one-on-one guidance through the college search and application process, for students and families who want clarity over pressure.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#1a1a1a;
+  --ink-soft:#33312c;
+  --gold:#b8860b;
+  --gold-bright:#cd9a2a;
+  --muted:#6b6b6b;
+  --muted-2:#8d8a82;
+  --hair:#e3e0d8;
+  --hair-dark:#3a382f;
+  --paper:#ffffff;
+  --canvas:#f2efe8;
+  --canvas-2:#f8f6f0;
+  --maxw:1120px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);
+  background:var(--canvas);
+  line-height:1.7;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+
+/* ---------- shared type devices ---------- */
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+}
+.serif{ font-family:'Cormorant Garamond',Georgia,serif; }
+
+.section{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:108px 40px;
+  scroll-margin-top:78px;
+}
+.section-head{ max-width:680px; margin-bottom:54px; }
+.section-head .eyebrow{ display:block; margin-bottom:14px; }
+.section-title{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-weight:500;
+  font-size:clamp(2rem,4.4vw,3.05rem);
+  line-height:1.08;
+  letter-spacing:.005em;
+}
+.section-lead{
+  margin-top:18px;
+  color:var(--muted);
+  font-weight:300;
+  font-size:clamp(1rem,1.6vw,1.16rem);
+}
+
+/* the signature: an animated gold rule echoing the logo's divider bar */
+.goldrule{
+  height:2px;
+  background:var(--gold);
+  width:0;
+  transition:width 1100ms cubic-bezier(.16,.8,.2,1);
+}
+.reveal .goldrule{ width:var(--rw,180px); }
+
+/* generic scroll-reveal */
+.rise{ opacity:0; transform:translateY(22px); transition:opacity 900ms ease, transform 900ms cubic-bezier(.16,.8,.2,1); }
+.reveal .rise{ opacity:1; transform:none; }
+.reveal .rise.d1{ transition-delay:90ms; }
+.reveal .rise.d2{ transition-delay:180ms; }
+.reveal .rise.d3{ transition-delay:270ms; }
+.reveal .rise.d4{ transition-delay:360ms; }
+
+/* ---------- header ---------- */
+.header{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 40px;
+  background:rgba(242,239,232,0);
+  border-bottom:1px solid transparent;
+  transition:background 400ms ease, border-color 400ms ease, padding 400ms ease;
+}
+.header.scrolled{
+  background:rgba(242,239,232,.92);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--hair);
+  padding:13px 40px;
+}
+.brand{ display:flex; flex-direction:column; line-height:1; text-decoration:none; }
+.brand .bn{ font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:500; letter-spacing:.01em; }
+.brand .bt{ font-size:8px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-2); margin-top:4px; }
+.nav{ display:flex; gap:34px; align-items:center; }
+.nav a{
+  font-size:12px; letter-spacing:.13em; text-transform:uppercase; font-weight:500;
+  text-decoration:none; color:var(--ink); position:relative; padding:4px 0;
+}
+.nav a::after{
+  content:''; position:absolute; left:0; bottom:-2px; height:1.5px; width:0;
+  background:var(--gold); transition:width 260ms ease;
+}
+.nav a:hover::after, .nav a:focus-visible::after{ width:100%; }
+.nav a.cta{
+  border:1px solid var(--ink); padding:9px 18px; letter-spacing:.13em;
+  transition:background 220ms ease,color 220ms ease,border-color 220ms ease;
+}
+.nav a.cta::after{ display:none; }
+.nav a.cta:hover, .nav a.cta:focus-visible{ background:var(--ink); color:var(--canvas); }
+.menu-btn{ display:none; background:none; border:0; cursor:pointer; padding:8px; }
+.menu-btn span{ display:block; width:24px; height:1.6px; background:var(--ink); margin:5px 0; transition:transform 300ms ease,opacity 300ms ease; }
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  padding:140px 24px 90px;
+  position:relative;
+}
+.plate{ max-width:760px; }
+.plate .frame-top, .plate .frame-bottom{ height:1px; background:var(--hair); margin:0 auto; max-width:340px; }
+.plate .eyebrow{ margin:26px 0 22px; }
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(2.9rem,9vw,5.7rem);
+  line-height:.98;
+  letter-spacing:.01em;
+}
+.hero-bar{ height:2.5px; background:var(--gold); margin:22px auto 18px; }
+.reveal .hero-bar{ /* width animated via inline transition below */ }
+.hero-tag{
+  font-size:clamp(10px,1.4vw,12.5px);
+  letter-spacing:.26em; text-transform:uppercase; color:#555; font-weight:400;
+}
+.frame-bottom{ margin-top:26px; }
+.hero-lead{
+  margin:46px auto 0; max-width:540px;
+  font-weight:300; color:var(--ink-soft);
+  font-size:clamp(1.02rem,1.9vw,1.22rem); line-height:1.65;
+}
+.hero-actions{ margin-top:38px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.btn{
+  display:inline-block; text-decoration:none; cursor:pointer;
+  font-size:12px; letter-spacing:.15em; text-transform:uppercase; font-weight:600;
+  padding:14px 28px; border:1px solid var(--ink);
+  transition:background 240ms ease,color 240ms ease,transform 240ms ease;
+}
+.btn-solid{ background:var(--ink); color:var(--canvas); }
+.btn-solid:hover, .btn-solid:focus-visible{ background:var(--gold); border-color:var(--gold); color:#fff; }
+.btn-ghost{ background:transparent; color:var(--ink); }
+.btn-ghost:hover, .btn-ghost:focus-visible{ background:var(--ink); color:var(--canvas); }
+.scroll-hint{
+  position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-2);
+}
+
+/* ---------- approach ---------- */
+.approach{ background:var(--paper); }
+.approach-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:64px; align-items:start; }
+.approach-grid .section-title{ font-size:clamp(2rem,4.2vw,3rem); }
+.approach-body p{ color:var(--ink-soft); font-weight:300; font-size:1.06rem; margin-bottom:20px; }
+.approach-body p:last-child{ margin-bottom:0; }
+.approach-body .lead-line{ color:var(--ink); font-weight:400; }
+.pull{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400;
+  font-size:clamp(1.5rem,3vw,2.05rem); line-height:1.3; color:var(--ink);
+}
+.pull .em{ color:var(--gold); font-style:normal; }
+
+/* ---------- services ---------- */
+.services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--hair); }
+.svc{
+  padding:42px 34px 46px; border-bottom:1px solid var(--hair); border-right:1px solid var(--hair);
+  transition:background 300ms ease;
+}
+.svc:nth-child(3n){ border-right:0; }
+.svc:hover{ background:var(--canvas-2); }
+.svc .n{ font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--gold); letter-spacing:.04em; }
+.svc h3{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.7rem; margin:14px 0 4px; line-height:1.15; }
+.svc .meta{ font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted-2); font-weight:600; margin-bottom:16px; }
+.svc p{ font-size:.97rem; font-weight:300; color:var(--muted); }
+
+/* ---------- process ---------- */
+.process{ background:var(--canvas-2); }
+.steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:34px; }
+.step{ position:relative; padding-top:30px; }
+.step .num{
+  font-family:'Cormorant Garamond',serif; font-size:2.7rem; font-weight:500;
+  color:var(--ink); line-height:1;
+}
+.step .num .dot{ color:var(--gold); }
+.step .sbar{ height:2px; background:var(--gold); width:34px; margin:16px 0 18px; }
+.step h3{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.32rem; margin-bottom:10px; }
+.step p{ font-size:.94rem; font-weight:300; color:var(--muted); }
+
+/* ---------- audience strip ---------- */
+.audience{ background:var(--paper); }
+.aud-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+.aud-item{ text-align:left; }
+.aud-item .k{ font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:500; line-height:1; }
+.aud-item .k .em{ color:var(--gold); }
+.aud-item .v{ margin-top:12px; font-size:.95rem; font-weight:300; color:var(--muted); }
+
+/* ---------- contact (reversed / dark brand variant) ---------- */
+.contact{
+  background:var(--ink); color:#f4f1ea; text-align:center;
+}
+.contact .section{ padding-top:104px; padding-bottom:108px; }
+.contact .eyebrow{ color:var(--gold-bright); }
+.contact .c-name{
+  font-family:'Cormorant Garamond',serif; font-weight:400;
+  font-size:clamp(2.3rem,6vw,3.8rem); line-height:1.02; margin:18px 0 0; color:#fff;
+}
+.contact .c-bar{ height:2px; background:var(--gold); margin:20px auto 16px; }
+.contact .c-tag{ font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:#cfcabd; }
+.contact .c-lead{
+  max-width:520px; margin:40px auto 32px; font-weight:300; color:#d9d4c8;
+  font-size:clamp(1.02rem,1.9vw,1.2rem);
+}
+.contact .email{
+  display:inline-block; font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(1.5rem,3.4vw,2.2rem); color:#fff; text-decoration:none;
+  border-bottom:1px solid var(--gold); padding-bottom:4px;
+  transition:color 240ms ease,border-color 240ms ease;
+}
+.contact .email:hover, .contact .email:focus-visible{ color:var(--gold-bright); }
+.contact .c-note{ margin-top:26px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#9a9483; }
+
+/* ---------- footer ---------- */
+.footer{ background:var(--ink); color:#8b8676; }
+.footer-inner{
+  max-width:var(--maxw); margin:0 auto; padding:26px 40px;
+  border-top:1px solid var(--hair-dark);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+  font-size:11px; letter-spacing:.08em;
+}
+.footer-inner a{ color:#b3ae9e; text-decoration:none; }
+.footer-inner a:hover{ color:var(--gold-bright); }
+
+/* ---------- focus + motion ---------- */
+:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .rise,.goldrule,.hero-bar{ transition:none !important; opacity:1 !important; transform:none !important; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .approach-grid{ grid-template-columns:1fr; gap:36px; }
+  .services-grid{ grid-template-columns:1fr; }
+  .svc{ border-right:0; }
+  .steps{ grid-template-columns:1fr 1fr; gap:30px 28px; }
+  .aud-grid{ grid-template-columns:1fr; gap:26px; }
+}
+@media (max-width:680px){
+  .section{ padding:74px 24px; }
+  .header{ padding:14px 22px; }
+  .header.scrolled{ padding:12px 22px; }
+  .nav{
+    position:fixed; inset:0 0 0 auto; width:min(78%,320px);
+    flex-direction:column; align-items:flex-start; justify-content:center; gap:26px;
+    background:var(--canvas); padding:40px; transform:translateX(100%);
+    transition:transform 360ms cubic-bezier(.16,.8,.2,1); box-shadow:-20px 0 60px rgba(0,0,0,.08);
+  }
+  .nav.open{ transform:translateX(0); }
+  .nav a{ font-size:15px; }
+  .menu-btn{ display:block; z-index:60; }
+  .menu-btn.open span:nth-child(1){ transform:translateY(6.6px) rotate(45deg); }
+  .menu-btn.open span:nth-child(2){ opacity:0; }
+  .menu-btn.open span:nth-child(3){ transform:translateY(-6.6px) rotate(-45deg); }
+  .steps{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <a class="brand" href="#top">
+    <span class="bn serif">Cassandra Goodman</span>
+    <span class="bt">Independent Educational Consultant</span>
+  </a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <a href="#approach">Approach</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact" class="cta">Get in touch</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="plate js-reveal">
+      <div class="frame-top rise"></div>
+      <span class="eyebrow rise d1">Guiding students to the right fit</span>
+      <h1 class="hero-name rise d1">Cassandra Goodman</h1>
+      <div class="hero-bar rise d2" style="width:0;"></div>
+      <div class="hero-tag rise d2">Independent Educational Consultant</div>
+      <div class="frame-bottom rise d3"></div>
+      <p class="hero-lead rise d3">Personalized, one-on-one guidance through the college search and
+        application process — for students and families who want clarity, not pressure.</p>
+      <div class="hero-actions rise d4">
+        <a href="#contact" class="btn btn-solid">Schedule a consultation</a>
+        <a href="#services" class="btn btn-ghost">Explore services</a>
+      </div>
+    </div>
+    <span class="scroll-hint">Scroll</span>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <div class="section js-reveal">
+      <div class="approach-grid">
+        <div>
+          <span class="eyebrow rise" style="display:block;margin-bottom:14px;">The approach</span>
+          <h2 class="section-title rise">A calmer, clearer<br>path forward</h2>
+          <div class="goldrule rise d1" style="--rw:120px;margin-top:24px;"></div>
+        </div>
+        <div class="approach-body">
+          <p class="lead-line rise">No two students take the same route, and no template fits them all.
+            Good guidance starts with the student in front of you — their interests, their strengths,
+            and what "the right fit" actually means for them.</p>
+          <p class="rise d1">The result is a process that feels less like a scramble and more like a plan:
+            a balanced list, an authentic story, and deadlines that arrive without the panic. Families
+            stay informed, students stay in the driver's seat, and the work gets done with room to breathe.</p>
+          <p class="pull rise d2">"The goal isn't the most impressive list — it's the
+            <span class="em">right</span> one."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section js-reveal" id="services">
+    <div class="section-head">
+      <span class="eyebrow rise">What I offer</span>
+      <h2 class="section-title rise" style="margin-top:14px;">Ways to work together</h2>
+      <div class="goldrule rise d1" style="--rw:150px;margin-top:22px;"></div>
+      <p class="section-lead rise d1">From a single strategy session to a full partnership — support scaled
+        to where a student is and how much help they want.</p>
+    </div>
+    <div class="services-grid rise d1">
+      <div class="svc">
+        <div class="n">i.</div>
+        <h3>Discovery Session</h3>
+        <div class="meta">Single session · by appointment</div>
+        <p>A focused one-on-one to map where a student stands today, surface options, and leave with
+          clear next steps. A good place to start.</p>
+      </div>
+      <div class="svc">
+        <div class="n">ii.</div>
+        <h3>Application Intensive</h3>
+        <div class="meta">Project-based · senior year</div>
+        <p>Hands-on support across the application: a balanced college list, essay strategy and edits,
+          timelines, and a careful review before anything is submitted.</p>
+      </div>
+      <div class="svc">
+        <div class="n">iii.</div>
+        <h3>Comprehensive Counseling</h3>
+        <div class="meta">Year-round partnership</div>
+        <p>An ongoing relationship from the first college conversation through final decisions —
+          regular check-ins, course and activity planning, and steady guidance at every stage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="section js-reveal" id="process">
+      <div class="section-head">
+        <span class="eyebrow rise">How it works</span>
+        <h2 class="section-title rise" style="margin-top:14px;">From first conversation to final choice</h2>
+        <div class="goldrule rise d1" style="--rw:150px;margin-top:22px;"></div>
+      </div>
+      <div class="steps">
+        <div class="step rise">
+          <div class="num">01<span class="dot">.</span></div>
+          <div class="sbar"></div>
+          <h3>Discovery</h3>
+          <p>Get to know the student — interests, strengths, goals, and what fit really means for them.</p>
+        </div>
+        <div class="step rise d1">
+          <div class="num">02<span class="dot">.</span></div>
+          <div class="sbar"></div>
+          <h3>Building the list</h3>
+          <p>A researched, balanced set of best-fit schools across reach, target, and likely.</p>
+        </div>
+        <div class="step rise d2">
+          <div class="num">03<span class="dot">.</span></div>
+          <div class="sbar"></div>
+          <h3>Applications &amp; essays</h3>
+          <p>Shape an authentic story and manage essays, deadlines, and details without the last-minute rush.</p>
+        </div>
+        <div class="step rise d3">
+          <div class="num">04<span class="dot">.</span></div>
+          <div class="sbar"></div>
+          <h3>Decisions</h3>
+          <p>Compare offers and aid, weigh fit, and choose the next four years with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="audience">
+    <div class="section js-reveal">
+      <div class="section-head" style="margin-bottom:42px;">
+        <span class="eyebrow rise">Who I work with</span>
+        <h2 class="section-title rise" style="margin-top:14px;">Students and families, every step</h2>
+        <div class="goldrule rise d1" style="--rw:130px;margin-top:22px;"></div>
+      </div>
+      <div class="aud-grid">
+        <div class="aud-item rise">
+          <div class="k serif">Grades&nbsp;<span class="em">8–12</span></div>
+          <div class="v">Early planning through senior-year applications, at whatever stage a family joins.</div>
+        </div>
+        <div class="aud-item rise d1">
+          <div class="k serif"><span class="em">Transfer</span></div>
+          <div class="v">Current college students mapping a thoughtful move to a better-fit school.</div>
+        </div>
+        <div class="aud-item rise d2">
+          <div class="k serif">U.S.&nbsp;&amp;&nbsp;<span class="em">int'l</span></div>
+          <div class="v">Domestic and international students navigating U.S. admissions with confidence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (reversed brand variant) -->
+  <section class="contact" id="contact">
+    <div class="section js-reveal">
+      <span class="eyebrow rise">Let's begin</span>
+      <h2 class="c-name serif rise">Cassandra Goodman</h2>
+      <div class="c-bar rise d1" style="width:0;"></div>
+      <div class="c-tag rise d1">Independent Educational Consultant</div>
+      <p class="c-lead rise d2">Tell me a little about your student and where you are in the process.
+        I'll follow up to set up a first conversation.</p>
+      <a class="email rise d2" href="mailto:hello@cassandragoodman.com">hello@cassandragoodman.com</a>
+      <div class="c-note rise d3">Replies within two business days</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="yr"></span> Cassandra Goodman · Independent Educational Consultant</span>
+    <a href="mailto:hello@cassandragoodman.com">hello@cassandragoodman.com</a>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // header scroll state
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile nav
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('nav');
+  const toggle = (open) => {
+    nav.classList.toggle('open', open);
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  btn.addEventListener('click', () => toggle(!nav.classList.contains('open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+
+  // animate the hero / contact gold bars to their target widths
+  const setBar = (el, w) => { if(el) requestAnimationFrame(() => { el.style.transition='width 1100ms cubic-bezier(.16,.8,.2,1)'; el.style.width=w; }); };
+
+  // scroll reveal
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const blocks = document.querySelectorAll('.js-reveal');
+  if(reduce){
+    blocks.forEach(b => b.classList.add('reveal'));
+    document.querySelector('.hero-bar').style.width='280px';
+    document.querySelector('.c-bar').style.width='240px';
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('reveal');
+          if(e.target.querySelector('.hero-bar')) setBar(e.target.querySelector('.hero-bar'),'280px');
+          if(e.target.querySelector('.c-bar')) setBar(e.target.querySelector('.c-bar'),'240px');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.18, rootMargin:'0px 0px -8% 0px'});
+    blocks.forEach(b => io.observe(b));
+  }
+</script>
+</body>
+</html>
