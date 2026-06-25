@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cassandra Goodman — Logo Specification</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root{
+  --gold:#b8860b;
+  --ink:#1a1a1a;
+  --muted:#6b6b6b;
+  --hair:#e3e0d8;
+  --paper:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);
+  background:#f0eee8;
+  line-height:1.6;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+.page{
+  max-width:840px;
+  margin:32px auto;
+  background:var(--paper);
+  padding:60px 64px 72px;
+  box-shadow:0 1px 40px rgba(0,0,0,.06);
+}
+
+/* masthead */
+.eyebrow{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+}
+.doc-title{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:40px;
+  line-height:1.1;
+  margin:6px 0 4px;
+}
+.doc-sub{ color:var(--muted); font-size:13px; letter-spacing:.5px; }
+.rule{ height:1px; background:var(--hair); border:0; margin:28px 0; }
+.rule.gold{ height:2px; background:var(--gold); margin:34px 0; }
+
+/* section heading */
+.sec-label{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:600;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.sec-label .num{ color:var(--gold); }
+
+/* logo hero */
+.logo-stage{
+  border:1px solid var(--hair);
+  padding:54px 24px;
+  text-align:center;
+}
+.lockup-name{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:46px;
+  line-height:1;
+  color:var(--ink);
+}
+.lockup-bar{
+  width:280px;
+  height:2.5px;
+  background:var(--gold);
+  margin:14px auto 12px;
+}
+.lockup-tag{
+  font-family:'Montserrat',sans-serif;
+  font-weight:400;
+  font-size:11.5px;
+  letter-spacing:2.5px;
+  color:#555;
+}
+
+/* spec grid */
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px 40px; }
+.spec dt{
+  font-size:10.5px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--muted); font-weight:600; margin-bottom:4px;
+}
+.spec dd{ font-size:14px; }
+.spec dd .em{ font-family:'Cormorant Garamond',serif; font-size:18px; }
+
+/* type table */
+table{ width:100%; border-collapse:collapse; font-size:13px; }
+th,td{ text-align:left; padding:11px 8px; border-bottom:1px solid var(--hair); vertical-align:top; }
+th{ font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
+td.spec-name{ font-weight:500; }
+td .note{ color:var(--muted); font-size:11.5px; }
+
+/* color swatches */
+.swatches{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.swatch{ border:1px solid var(--hair); overflow:hidden; }
+.swatch .chip{ height:90px; }
+.swatch .meta{ padding:14px 16px; }
+.swatch .nm{ font-weight:500; font-size:14px; margin-bottom:6px; }
+.swatch .val{ font-size:12px; color:var(--muted); font-family:'Montserrat'; }
+.swatch .val span{ color:var(--ink); }
+
+/* variants */
+.variants{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.variant{ border:1px solid var(--hair); padding:26px 12px; text-align:center; }
+.variant.dark{ background:var(--ink); border-color:var(--ink); }
+.variant .vn{
+  font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400;
+}
+.variant .vbar{ width:90px; height:2px; margin:7px auto 6px; }
+.variant .vt{ font-size:7px; letter-spacing:1.5px; }
+.variant .cap{
+  display:block; margin-top:16px; font-size:9.5px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--muted); font-weight:600;
+}
+
+/* clear space diagram */
+.clear-wrap{ display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
+.clear-box{
+  position:relative; border:1px solid var(--hair); padding:48px;
+  background:repeating-linear-gradient(45deg,#faf8f3,#faf8f3 7px,#fff 7px,#fff 14px);
+  flex:1; min-width:280px; text-align:center;
+}
+.clear-inner{ background:#fff; border:1px dashed var(--gold); padding:22px 14px; }
+.clear-inner .cn{ font-family:'Cormorant Garamond',serif; font-size:26px; }
+.clear-inner .cb{ width:120px; height:2px; background:var(--gold); margin:6px auto 5px; }
+.clear-inner .ct{ font-size:7px; letter-spacing:1.5px; color:#555; }
+.clear-note{ flex:1; min-width:220px; }
+.clear-note p{ font-size:13px; margin-bottom:12px; }
+.clear-note .x{ color:var(--gold); font-weight:600; }
+
+/* lists */
+.cols{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+.cols h4{
+  font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:600;
+  margin-bottom:12px;
+}
+.cols h4.do{ color:#3a7d34; }
+.cols h4.dont{ color:#a13226; }
+.cols ul{ list-style:none; }
+.cols li{ font-size:13px; padding:6px 0 6px 22px; position:relative; }
+.cols li::before{ position:absolute; left:0; top:5px; font-weight:600; }
+.do li::before{ content:'\2713'; color:#3a7d34; }
+.dont li::before{ content:'\2715'; color:#a13226; }
+
+/* deliverables */
+.deliv{ list-style:none; }
+.deliv li{
+  font-size:13px; padding:10px 0; border-bottom:1px solid var(--hair);
+  display:flex; gap:14px;
+}
+.deliv li b{ font-weight:500; min-width:130px; }
+.deliv li .d{ color:var(--muted); }
+
+footer{ margin-top:40px; font-size:11px; color:var(--muted); letter-spacing:.5px; text-align:center; }
+
+@media print{
+  body{ background:#fff; }
+  .page{ box-shadow:none; margin:0; max-width:none; padding:24px 28px; }
+  *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+@media (max-width:640px){
+  .page{ padding:32px 22px; }
+  .grid,.swatches,.cols{ grid-template-columns:1fr; }
+  .variants{ grid-template-columns:1fr; }
+  .lockup-name{ font-size:34px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Brand identity · Logo specification</div>
+  <h1 class="doc-title">Cassandra Goodman</h1>
+  <div class="doc-sub">Independent Educational Consultant — primary logo guidelines</div>
+
+  <hr class="rule gold">
+
+  <!-- primary logo -->
+  <div class="sec-label"><span class="num">01</span> Primary logo</div>
+  <div class="logo-stage">
+    <div class="lockup-name">Cassandra Goodman</div>
+    <div class="lockup-bar"></div>
+    <div class="lockup-tag">INDEPENDENT EDUCATIONAL CONSULTANT</div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- construction -->
+  <div class="sec-label"><span class="num">02</span> Construction</div>
+  <div class="grid spec">
+    <dl class="spec">
+      <dt>Wordmark</dt>
+      <dd><span class="em">Cassandra Goodman</span><br>set in Cormorant Garamond, Regular</dd>
+    </dl>
+    <dl class="spec">
+      <dt>Tagline</dt>
+      <dd>INDEPENDENT EDUCATIONAL CONSULTANT<br>uppercase, letterspaced</dd>
+    </dl>
+    <dl class="spec">
+      <dt>Divider bar</dt>
+      <dd>Solid gold rule, centered, ~60% of the wordmark width, ~2.5pt thick</dd>
+    </dl>
+    <dl class="spec">
+      <dt>Alignment</dt>
+      <dd>All three elements centered on a shared vertical axis</dd>
+    </dl>
+  </div>
+
+  <hr class="rule">
+
+  <!-- typography -->
+  <div class="sec-label"><span class="num">03</span> Typography</div>
+  <table>
+    <thead>
+      <tr><th>Element</th><th>Typeface</th><th>Weight / Case</th><th>Tracking</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="spec-name">Wordmark</td>
+        <td>Cormorant Garamond<br><span class="note">Google Fonts (free)</span></td>
+        <td>Regular (400) · Title case</td>
+        <td>0 (normal)</td>
+      </tr>
+      <tr>
+        <td class="spec-name">Tagline</td>
+        <td>Montserrat<br><span class="note">recommended pairing; free</span></td>
+        <td>Regular (400) · UPPERCASE</td>
+        <td>+2.5px (≈ 0.22em)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--muted);margin-top:12px;">Relative scale: tagline cap-height ≈ 25% of the wordmark cap-height. Keep the wordmark and tagline in fixed proportion — scale the lockup as a single unit, never resize one element independently.</p>
+
+  <hr class="rule">
+
+  <!-- color -->
+  <div class="sec-label"><span class="num">04</span> Color</div>
+  <div class="swatches">
+    <div class="swatch">
+      <div class="chip" style="background:#b8860b;"></div>
+      <div class="meta">
+        <div class="nm">Heritage Gold</div>
+        <div class="val">HEX <span>#B8860B</span></div>
+        <div class="val">RGB <span>184 · 134 · 11</span></div>
+        <div class="val">CMYK <span>0 · 27 · 94 · 28</span></div>
+        <div class="val">Pantone <span>~1245 C (confirm w/ printer)</span></div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:#1a1a1a;"></div>
+      <div class="meta">
+        <div class="nm">Wordmark Ink</div>
+        <div class="val">HEX <span>#1A1A1A</span></div>
+        <div class="val">RGB <span>26 · 26 · 26</span></div>
+        <div class="val">CMYK <span>0 · 0 · 0 · 90</span></div>
+        <div class="val">Pantone <span>Black (near)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- variations -->
+  <div class="sec-label"><span class="num">05</span> Approved variations</div>
+  <div class="variants">
+    <div class="variant">
+      <div class="vn" style="color:#1a1a1a;">Cassandra Goodman</div>
+      <div class="vbar" style="background:#b8860b;"></div>
+      <div class="vt" style="color:#555;">INDEPENDENT EDUCATIONAL CONSULTANT</div>
+      <span class="cap">Full color</span>
+    </div>
+    <div class="variant">
+      <div class="vn" style="color:#1a1a1a;">Cassandra Goodman</div>
+      <div class="vbar" style="background:#1a1a1a;"></div>
+      <div class="vt" style="color:#1a1a1a;">INDEPENDENT EDUCATIONAL CONSULTANT</div>
+      <span class="cap">All black</span>
+    </div>
+    <div class="variant dark">
+      <div class="vn" style="color:#fff;">Cassandra Goodman</div>
+      <div class="vbar" style="background:#b8860b;"></div>
+      <div class="vt" style="color:#cfcfcf;">INDEPENDENT EDUCATIONAL CONSULTANT</div>
+      <span class="cap" style="color:#999;">Reversed</span>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- clear space -->
+  <div class="sec-label"><span class="num">06</span> Clear space &amp; minimum size</div>
+  <div class="clear-wrap">
+    <div class="clear-box">
+      <div class="clear-inner">
+        <div class="cn">Cassandra Goodman</div>
+        <div class="cb"></div>
+        <div class="ct">INDEPENDENT EDUCATIONAL CONSULTANT</div>
+      </div>
+    </div>
+    <div class="clear-note">
+      <p><b>Clear space.</b> Keep a margin of at least <span class="x">x</span> on all sides, where <span class="x">x</span> = the cap-height of the wordmark. Nothing — text, edges, or other graphics — should enter this zone.</p>
+      <p><b>Minimum size.</b> Print: <span class="x">40&nbsp;mm</span> wide. Digital: <span class="x">160&nbsp;px</span> wide. Below this the tagline becomes hard to read — drop the tagline or use initials instead.</p>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- usage -->
+  <div class="sec-label"><span class="num">07</span> Usage</div>
+  <div class="cols">
+    <div>
+      <h4 class="do">Do</h4>
+      <ul class="do">
+        <li>Scale the full lockup proportionally as one unit.</li>
+        <li>Use on white, off-white, or quiet neutral backgrounds.</li>
+        <li>Use the reversed version on dark or photographic backgrounds.</li>
+        <li>Give it generous clear space.</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="dont">Don't</h4>
+      <ul class="dont">
+        <li>Recolor the wordmark or swap the gold for another hue.</li>
+        <li>Change the typefaces or add a third font.</li>
+        <li>Stretch, skew, rotate, or add shadows/outlines.</li>
+        <li>Place on busy or low-contrast backgrounds.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- deliverables -->
+  <div class="sec-label"><span class="num">08</span> File deliverables checklist</div>
+  <ul class="deliv">
+    <li><b>SVG</b><span class="d">Master vector file — scales to any size, source of truth.</span></li>
+    <li><b>EPS / AI</b><span class="d">Vector for professional print (business cards, signage).</span></li>
+    <li><b>PNG (transparent)</b><span class="d">Color, all-black, and all-white — each at 500px, 1000px, 2000px wide.</span></li>
+    <li><b>PDF</b><span class="d">Vector PDF for sharing and document headers.</span></li>
+    <li><b>Favicon / avatar</b><span class="d">Square crop or initials mark, 512×512px, for web and social.</span></li>
+  </ul>
+
+  <footer>Cassandra Goodman · Logo specification · Cormorant Garamond + Montserrat · Heritage Gold #B8860B</footer>
+
+</div>
+</body>
+</html>
