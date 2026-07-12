@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Portal — Cassandra Goodman</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#1a1a1a; --ink-soft:#33312c;
+  --gold:#b8860b; --gold-bright:#cd9a2a;
+  --muted:#6b6b6b; --muted-2:#8d8a82;
+  --hair:#e3e0d8;
+  --canvas:#f2efe8; --canvas-2:#f8f6f0;
+  --err:#b3423a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink); background:var(--canvas); line-height:1.7; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;}
+
+.wrap{ max-width:640px; margin:0 auto; padding:64px 24px 96px; }
+.brand{ display:block; margin-bottom:56px; text-decoration:none; }
+.brand .bn{ font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:500; }
+.brand .bt{ font-size:8px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-2); margin-top:4px; }
+
+h1{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:clamp(1.8rem,4vw,2.4rem); margin-bottom:14px; }
+.lead{ color:var(--muted); font-weight:300; margin-bottom:32px; max-width:46ch; }
+
+.card{ background:var(--canvas-2); border:1px solid var(--hair); padding:32px; margin-bottom:24px; }
+.card h2{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:1.35rem; margin-bottom:16px; }
+.field-row{ display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid var(--hair); font-size:.95rem; }
+.field-row:last-child{ border-bottom:none; }
+.field-row .k{ color:var(--muted-2); font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-top:2px; }
+.field-row .v{ text-align:right; max-width:60%; }
+
+.upload-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+input[type=file]{ font-size:.9rem; }
+button, .btn{ border:1px solid var(--gold); background:var(--gold); color:#fff; padding:11px 22px;
+  font-size:12px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; cursor:pointer;
+  transition:background .2s ease,color .2s ease; text-decoration:none; display:inline-block; }
+button:hover, .btn:hover{ background:transparent; color:var(--gold-bright); }
+button:disabled{ opacity:.5; cursor:default; }
+.btn-ghost{ border:1px solid var(--hair-dark,#8d8a82); background:transparent; color:var(--ink); }
+
+.file-list{ list-style:none; margin-top:8px; }
+.file-list li{ display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--hair); font-size:.92rem; }
+.file-list li:last-child{ border-bottom:none; }
+.file-list a{ color:var(--gold); text-decoration:none; border-bottom:1px solid var(--gold); }
+.empty{ color:var(--muted-2); font-size:.9rem; font-style:italic; }
+
+.msg{ margin-top:14px; font-size:.9rem; }
+.msg.error{ color:var(--err); }
+.msg.ok{ color:#4a7a3a; }
+.hint{ margin-top:8px; font-size:11px; color:var(--muted-2); }
+.signout{ margin-top:8px; display:inline-block; font-size:12px; color:var(--muted); text-decoration:underline; cursor:pointer; }
+#gsi-button{ margin-top:8px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="brand" href="https://cassandragoodman.github.io/">
+    <span class="bn">Cassandra Goodman</span>
+    <span class="bt">College Admissions Consulting</span>
+  </a>
+
+  <div id="signedOut">
+    <h1 class="serif">Client Portal</h1>
+    <p class="lead">Sign in with the Google account you shared with Cassandra to view your status and upload documents.</p>
+    <div id="gsi-button"></div>
+    <p class="hint">Access is by invitation only. If you haven't worked with Cassandra yet, please reach out first.</p>
+    <p class="msg error" id="signInError" style="display:none;"></p>
+  </div>
+
+  <div id="signedIn" style="display:none;">
+    <h1 class="serif">Welcome<span id="welcomeName"></span></h1>
+    <p class="lead">Here's where things stand, and a place to send over any documents.</p>
+
+    <div class="card">
+      <h2>Your status</h2>
+      <div class="field-row"><span class="k">Status</span><span class="v" id="profileStatus">—</span></div>
+      <div class="field-row"><span class="k">Notes</span><span class="v" id="profileNotes">—</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Upload a document</h2>
+      <div class="upload-row">
+        <input type="file" id="fileInput">
+        <button id="uploadBtn" type="button">Upload</button>
+      </div>
+      <p class="hint">Please keep individual files under 4MB (essays, transcripts, and PDFs are all fine).</p>
+      <p class="msg" id="uploadMsg" style="display:none;"></p>
+    </div>
+
+    <div class="card">
+      <h2>Your files</h2>
+      <ul class="file-list" id="fileList"></ul>
+      <p class="empty" id="filesEmpty" style="display:none;">No files uploaded yet.</p>
+    </div>
+
+    <span class="signout" id="signOutLink">Sign out</span>
+  </div>
+</div>
+
+<!-- Replace with the OAuth Client ID from Google Cloud Console (step 4 of the setup
+     checklist). This value is meant to be public — it identifies the app to Google,
+     it is not a secret. -->
+<script>
+  var GOOGLE_CLIENT_ID = "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com";
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+(function(){
+  "use strict";
+
+  var SESSION_KEY = "portalSession";
+
+  function getSession(){
+    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); }
+    catch(e){ return null; }
+  }
+  function setSession(session){ localStorage.setItem(SESSION_KEY, JSON.stringify(session)); }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function showSignedOut(errorMsg){
+    document.getElementById("signedIn").style.display = "none";
+    document.getElementById("signedOut").style.display = "block";
+    var errEl = document.getElementById("signInError");
+    if (errorMsg){ errEl.textContent = errorMsg; errEl.style.display = "block"; }
+    else { errEl.style.display = "none"; }
+  }
+
+  function showSignedIn(profile){
+    document.getElementById("signedOut").style.display = "none";
+    document.getElementById("signedIn").style.display = "block";
+    document.getElementById("welcomeName").textContent = profile.name ? ", " + profile.name : "";
+    document.getElementById("profileStatus").textContent = profile.status || "—";
+    document.getElementById("profileNotes").textContent = profile.notes || "—";
+    loadFiles();
+  }
+
+  function authHeader(){
+    var session = getSession();
+    return session ? { "Authorization": "Bearer " + session.sessionToken } : {};
+  }
+
+  function handleCredentialResponse(response){
+    fetch("/api/auth/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ idToken: response.credential })
+    })
+    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(result){
+      if (!result.ok){
+        showSignedOut(result.data.error || "Sign-in failed. Please try again.");
+        return;
+      }
+      setSession({ sessionToken: result.data.sessionToken });
+      showSignedIn(result.data.profile);
+    })
+    .catch(function(){ showSignedOut("Sign-in failed. Please check your connection and try again."); });
+  }
+
+  function loadFiles(){
+    fetch("/api/files", { headers: authHeader() })
+      .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+      .then(function(result){
+        if (!result.ok){ signOut(); return; }
+        var list = document.getElementById("fileList");
+        var empty = document.getElementById("filesEmpty");
+        list.innerHTML = "";
+        var files = result.data.files || [];
+        if (!files.length){ empty.style.display = "block"; return; }
+        empty.style.display = "none";
+        files.forEach(function(f){
+          var li = document.createElement("li");
+          var link = document.createElement("a");
+          link.href = f.webViewLink; link.target = "_blank"; link.rel = "noopener";
+          link.textContent = f.name;
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+      });
+  }
+
+  function uploadFile(){
+    var input = document.getElementById("fileInput");
+    var msg = document.getElementById("uploadMsg");
+    var btn = document.getElementById("uploadBtn");
+    if (!input.files || !input.files[0]){
+      msg.className = "msg error"; msg.textContent = "Choose a file first."; msg.style.display = "block";
+      return;
+    }
+    var formData = new FormData();
+    formData.append("file", input.files[0]);
+    btn.disabled = true;
+    msg.style.display = "none";
+    fetch("/api/upload", { method: "POST", headers: authHeader(), body: formData })
+      .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+      .then(function(result){
+        btn.disabled = false;
+        if (!result.ok){
+          msg.className = "msg error"; msg.textContent = result.data.error || "Upload failed."; msg.style.display = "block";
+          return;
+        }
+        msg.className = "msg ok"; msg.textContent = "Uploaded — thank you!"; msg.style.display = "block";
+        input.value = "";
+        loadFiles();
+      })
+      .catch(function(){
+        btn.disabled = false;
+        msg.className = "msg error"; msg.textContent = "Upload failed. Please try again."; msg.style.display = "block";
+      });
+  }
+
+  function signOut(){
+    clearSession();
+    if (window.google && google.accounts && google.accounts.id){ google.accounts.id.disableAutoSelect(); }
+    showSignedOut();
+  }
+
+  document.getElementById("uploadBtn").addEventListener("click", uploadFile);
+  document.getElementById("signOutLink").addEventListener("click", signOut);
+
+  window.onload = function(){
+    if (window.google && google.accounts && google.accounts.id){
+      google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse });
+      google.accounts.id.renderButton(document.getElementById("gsi-button"), { theme: "outline", size: "large" });
+    }
+
+    var session = getSession();
+    if (session && session.sessionToken){
+      fetch("/api/profile", { headers: authHeader() })
+        .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+        .then(function(result){
+          if (!result.ok){ signOut(); return; }
+          showSignedIn(result.data.profile);
+        })
+        .catch(function(){ signOut(); });
+    }
+  };
+})();
+</script>
+</body>
+</html>

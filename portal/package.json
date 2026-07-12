@@ -1,0 +1,12 @@
+{
+  "name": "cassandra-goodman-client-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Client portal backend: Google sign-in, Drive uploads, student status page.",
+  "dependencies": {
+    "google-auth-library": "^9.14.1",
+    "googleapis": "^140.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "formidable": "^3.5.1"
+  }
+}
