@@ -56,6 +56,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json({ file: data });
   } catch (err) {
+    console.error('upload.js error:', err && err.message, err && err.stack);
     res.status(400).json({
       error: 'Could not upload that file — it may be too large (please keep files under 4MB) or unreadable. Please try again.',
     });
