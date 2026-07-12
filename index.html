@@ -178,20 +178,12 @@ a{color:inherit;}
 .contact .c-email{ display:inline-block; margin-top:26px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.5rem;
   color:#fff; text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:3px; transition:color .24s ease; }
 .contact .c-email:hover, .contact .c-email:focus-visible{ color:var(--gold-bright); }
-.form .field{ margin-bottom:20px; }
-.form label{ display:block; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#b9b3a4; font-weight:600; margin-bottom:8px; }
-.form input, .form select, .form textarea{ width:100%; background:transparent; border:0; border-bottom:1px solid #4a4840; color:#fff;
-  font:inherit; font-size:1rem; font-weight:300; padding:9px 2px; transition:border-color .24s ease; }
-.form select{ color:#d9d4c8; }
-.form select option{ color:#1a1a1a; }
-.form textarea{ resize:vertical; min-height:96px; }
-.form input:focus, .form select:focus, .form textarea:focus{ outline:none; border-color:var(--gold); }
-.form .err{ display:block; margin-top:7px; font-size:11px; letter-spacing:.04em; color:#e9a79c; text-transform:none; font-weight:400; min-height:1px; }
-.form .submit{ margin-top:8px; border:1px solid var(--gold); background:var(--gold); color:#fff; padding:14px 30px;
+.intake-panel{ max-width:420px; }
+.intake-panel .intake-lead{ color:#d9d4c8; font-weight:300; font-size:1.06rem; margin-bottom:26px; }
+.intake-panel .cta-btn{ display:inline-block; text-decoration:none; border:1px solid var(--gold); background:var(--gold); color:#fff; padding:14px 30px;
   font-size:12px; letter-spacing:.15em; text-transform:uppercase; font-weight:600; cursor:pointer; transition:background .24s ease,color .24s ease; }
-.form .submit:hover{ background:transparent; color:var(--gold-bright); }
-.form .sent{ margin-top:18px; font-size:.95rem; font-weight:300; color:#bfe0b8; }
-.form .hint{ margin-top:14px; font-size:11px; color:#8b8676; line-height:1.6; }
+.intake-panel .cta-btn:hover, .intake-panel .cta-btn:focus-visible{ background:transparent; color:var(--gold-bright); }
+.intake-panel .hint{ margin-top:16px; font-size:11px; color:#8b8676; line-height:1.6; }
 
 /* footer */
 .footer{ background:var(--ink); color:#8b8676; }
@@ -437,7 +429,7 @@ a{color:inherit;}
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false"><span class="q serif">How do we get started?</span><span class="pm">+</span></button>
-          <div class="faq-a"><p>Send a short note through the form below or by email with your student's grade and where you are in the process. I'll follow up to set up a first conversation.</p></div>
+          <div class="faq-a"><p>Open the intake form below, or send a quick email with your student's grade and where you are in the process. I'll follow up to set up a first conversation.</p></div>
         </div>
       </div>
     </div>
@@ -454,35 +446,11 @@ a{color:inherit;}
           I'll follow up to set up a first conversation.</p>
         <a class="c-email" href="mailto:cassandragoodman77@gmail.com">cassandragoodman77@gmail.com</a>
       </div>
-      <form class="form rise d1" id="contactForm" novalidate>
-        <div class="field">
-          <label for="f-name">Your name</label>
-          <input id="f-name" name="name" type="text">
-          <span class="err" data-for="name"></span>
-        </div>
-        <div class="field">
-          <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email">
-          <span class="err" data-for="email"></span>
-        </div>
-        <div class="field">
-          <label for="f-grade">Student's grade</label>
-          <select id="f-grade" name="grade">
-            <option value="">Select one</option>
-            <option>9th grade</option><option>10th grade</option>
-            <option>11th grade</option><option>12th grade</option>
-            <option>Transfer student</option><option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-msg">A short message</label>
-          <textarea id="f-msg" name="message"></textarea>
-          <span class="err" data-for="message"></span>
-        </div>
-        <button type="submit" class="submit">Send inquiry</button>
-        <p class="sent" id="sentNote" style="display:none;">Thanks — your email app should open with the message ready to send.</p>
-        <p class="hint">Submitting opens your email app with the details filled in. Prefer email? Write to cassandragoodman77@gmail.com directly.</p>
-      </form>
+      <div class="intake-panel rise d1">
+        <p class="intake-lead">Ready to get started? Fill out the intake form and I'll follow up to set up a first conversation.</p>
+        <a class="cta-btn" href="https://forms.gle/ADfXXuqTASbfL2KT9" target="_blank" rel="noopener">Open the intake form</a>
+        <p class="hint">Opens in a new tab · takes a few minutes. Prefer email? Write to cassandragoodman77@gmail.com directly.</p>
+      </div>
     </div>
   </section>
 
@@ -498,7 +466,6 @@ a{color:inherit;}
 <script>
 (function(){
   "use strict";
-  var EMAIL = "cassandragoodman77@gmail.com";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.body.classList.remove("no-js");
 
@@ -608,31 +575,6 @@ a{color:inherit;}
   render(0);
   function start(){ if (reduce) return; timer = setInterval(function(){ fadeTo((idx + 1) % TESTI.length); }, 6500); }
   start();
-
-  // contact form -> mailto
-  var form = document.getElementById("contactForm");
-  function showErr(name, msg){
-    var el = form.querySelector('.err[data-for="' + name + '"]');
-    if (el) el.textContent = msg || "";
-  }
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    var name = form.name.value.trim();
-    var email = form.email.value.trim();
-    var grade = form.grade.value;
-    var message = form.message.value.trim();
-    var ok = true;
-    showErr("name",""); showErr("email",""); showErr("message","");
-    if (!name){ showErr("name","Please add your name."); ok = false; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ showErr("email","Please add a valid email."); ok = false; }
-    if (!message){ showErr("message","A short note helps me prepare."); ok = false; }
-    if (!ok) return;
-    var subject = encodeURIComponent("Consultation inquiry — " + name);
-    var body = encodeURIComponent("Name: " + name + "\nEmail: " + email +
-      "\nStudent's grade: " + (grade || "Not specified") + "\n\n" + message);
-    window.location.href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
-    document.getElementById("sentNote").style.display = "block";
-  });
 })();
 </script>
 </body>
