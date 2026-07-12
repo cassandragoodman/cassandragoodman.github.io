@@ -51,7 +51,6 @@ module.exports = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error('verify.js error:', err && err.message, err && err.stack);
     res.status(500).json({ error: 'Something went wrong while signing you in. Please try again.' });
   }
 };
