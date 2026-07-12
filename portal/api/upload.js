@@ -2,7 +2,7 @@ const fs = require('fs');
 const { formidable } = require('formidable');
 const { requireSession } = require('./_lib/session');
 const { findStudentByEmail } = require('./_lib/studentsSheet');
-const { getDriveClient } = require('./_lib/googleClients');
+const { getUserDriveClient } = require('./_lib/googleClients');
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024; // stay under Vercel's ~4.5MB request body limit
 
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
       return;
     }
 
-    const drive = getDriveClient();
+    const drive = getUserDriveClient();
     const { data } = await drive.files.create({
       requestBody: {
         name: uploaded.originalFilename || uploaded.newFilename,
@@ -56,7 +56,6 @@ module.exports = async (req, res) => {
 
     res.status(200).json({ file: data });
   } catch (err) {
-    console.error('upload.js error:', err && err.message, err && err.stack);
     res.status(400).json({
       error: 'Could not upload that file — it may be too large (please keep files under 4MB) or unreadable. Please try again.',
     });
