@@ -1,6 +1,6 @@
 const { requireSession } = require('./_lib/session');
 const { findStudentByEmail } = require('./_lib/studentsSheet');
-const { getDriveClient } = require('./_lib/googleClients');
+const { getUserDriveClient } = require('./_lib/googleClients');
 
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
       return;
     }
 
-    const drive = getDriveClient();
+    const drive = getUserDriveClient();
     const { data } = await drive.files.list({
       q: `'${session.driveFolderId}' in parents and trashed = false`,
       fields: 'files(id, name, webViewLink, createdTime, size)',
